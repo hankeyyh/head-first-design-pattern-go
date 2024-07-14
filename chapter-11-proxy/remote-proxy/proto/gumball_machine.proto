@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option go_package = "/proto";
+
+message EmptyRequest {}
+message EmptyResponse {}
+
+message GetCountResponse {
+    int32 count = 1;
+}

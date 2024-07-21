@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"image/color"
 	"time"
 
@@ -29,7 +28,7 @@ type ImageProxy struct {
 	imageMetadata map[string]*ImageIcon
 	curImage      string
 	image         *canvas.Image
-	loadingText   *canvas.Text
+	text          *canvas.Text
 }
 
 func NewImageProxy(nameUrlMap map[string]string) *ImageProxy {
@@ -44,9 +43,10 @@ func NewImageProxy(nameUrlMap map[string]string) *ImageProxy {
 	}
 	result.image = canvas.NewImageFromFile("")
 	result.image.FillMode = canvas.ImageFillOriginal
-	result.loadingText = canvas.NewText("Loading...", color.Black)
+	result.text = canvas.NewText("", color.NRGBA{R: 255, G: 0, B: 0, A: 255})
 	result.image.Hide()
-	result.loadingText.Hide()
+	result.text.Hide()
+
 	return result
 }
 
@@ -58,30 +58,34 @@ func (ip *ImageProxy) PaintIcon(name string) {
 		return
 	}
 	// image is loading, display loading text
+	ip.paintText("Loading...")
 	if ip.imageMetadata[name].loadStatus == Loading {
-		ip.paintLoadingText()
 		return
 	}
-	// iamge is not start loading, start loading
+	// iamge is unload, start loading
 	ip.imageMetadata[name].loadStatus = Loading
-	ip.paintLoadingText()
 
-	// TODO 控制生命周期
 	go ip.loadImage(name)
 }
 
 func (ip *ImageProxy) loadImage(name string) {
+	// take more time
 	time.Sleep(time.Second * 2)
+	
 	err := downloadFile(name, ip.imageMetadata[name].url)
 	if err != nil {
-		// display text error
-		fmt.Println(err)
 		ip.imageMetadata[name].loadStatus = UnLoad
+	} else {
+		ip.imageMetadata[name].loadStatus = Loaded
+	}
+	// if the image is not the current image, do not display it
+	if name != ip.curImage {
 		return
 	}
-	ip.imageMetadata[name].loadStatus = Loaded
-	// if still waiting, display the image
-	if ip.curImage == name {
+	// display fail text or image
+	if err != nil {
+		ip.paintText(err.Error())
+	} else {
 		ip.paintImage(name)
 	}
 }
@@ -89,15 +93,16 @@ func (ip *ImageProxy) loadImage(name string) {
 func (ip *ImageProxy) paintImage(name string) {
 	ip.image.File = ip.imageMetadata[name].filename
 	ip.image.Show()
-	ip.loadingText.Hide()
+	ip.text.Hide()
 	ip.image.Refresh()
 }
 
-func (ip *ImageProxy) paintLoadingText() {
+func (ip *ImageProxy) paintText(text string) {
 	ip.image.Hide()
-	ip.loadingText.Show()
+	ip.text.Text = text
+	ip.text.Show()
 }
 
 func (ip *ImageProxy) GetContent() fyne.CanvasObject {
-	return container.New(layout.NewCenterLayout(), ip.loadingText, ip.image)
+	return container.New(layout.NewCenterLayout(), ip.text, ip.image)
 }

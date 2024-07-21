@@ -4,12 +4,15 @@ import (
 	"bytes"
 	"net/http"
 	"os"
+	"time"
 )
 
 // TODO timeout
 func downloadFile(filename, url string) error {
 	// Download the image from the URL
-	client := &http.Client{}
+	client := &http.Client{
+		Timeout: time.Second * 5,
+	}
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return err

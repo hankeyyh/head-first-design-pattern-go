@@ -7,6 +7,6 @@ Some cases in the tutorial depend on specific Java packages. In order to impleme
 
 
 ### chapter-11-proxy
-virtual-proxy: implement an album cover viewer. [fyne](https://docs.fyne.io/) for UI rendering.
+virtual-proxy: implement an album cover viewer. Imageproxy controls network communication and display a "Loading" label during the process. [fyne](https://docs.fyne.io/) for UI rendering.
 
 <img src="doc/image.png" alt="alt text" width="300" height="350">

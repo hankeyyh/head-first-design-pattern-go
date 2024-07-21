@@ -14,7 +14,7 @@ import (
 type LoadStatus int
 
 const (
-	UnStarted LoadStatus = iota
+	UnLoad LoadStatus = iota
 	Loading
 	Loaded
 )
@@ -36,7 +36,7 @@ func NewImageProxy(nameUrlMap map[string]string) *ImageProxy {
 	result := new(ImageProxy)
 	result.imageMetadata = make(map[string]*ImageIcon)
 	for filename, url := range nameUrlMap {
-		icon := &ImageIcon{url: url, loadStatus: UnStarted, filename: filename}
+		icon := &ImageIcon{url: url, loadStatus: UnLoad, filename: filename}
 		if fileExists(filename) {
 			icon.loadStatus = Loaded
 		}
@@ -73,7 +73,7 @@ func (ip *ImageProxy) PaintIcon(name string) {
 		if err != nil {
 			// display text error
 			fmt.Println(err)
-			ip.imageMetadata[name].loadStatus = UnStarted
+			ip.imageMetadata[name].loadStatus = UnLoad
 			return
 		}
 		ip.imageMetadata[name].loadStatus = Loaded

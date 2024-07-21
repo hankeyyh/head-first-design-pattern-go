@@ -1,48 +1,14 @@
 package main
 
 import (
-	"fmt"
-	"image/color"
-
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
-	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/widget"
 )
 
-func rawload() {
-	a := app.New()
-	w := a.NewWindow("Menu Example")
-	w.Resize(fyne.NewSize(400, 400))
-
-	text := canvas.NewText("Empty", color.NRGBA{R: 0, G: 0, B: 0, A: 255})
-	image := canvas.NewImageFromFile("")
-
-	wselect := widget.NewSelect([]string{"Buddha Bar.jpg", "Ima.jpg", "MCMXC a.D.jpg", "text"}, nil)
-	wselect.OnChanged = func(selected string) {
-		fmt.Println(selected)
-		if selected == "text" {
-			image.Hide()
-			text.Show()
-		} else {
-			image.File = selected
-			image.FillMode = canvas.ImageFillOriginal
-			image.Refresh()
-			image.Show()
-			text.Hide()
-		}
-	}
-
-	center := container.New(layout.NewCenterLayout(), text, image)
-	vbox := container.New(layout.NewVBoxLayout(), wselect, center)
-
-	w.SetContent(vbox)
-	w.ShowAndRun()
-}
-
-func proxyload() {
+func main() {
 	a := app.New()
 	w := a.NewWindow("Menu Example")
 	w.Resize(fyne.NewSize(400, 400))
@@ -70,9 +36,4 @@ func proxyload() {
 
 	w.SetContent(vbox)
 	w.ShowAndRun()
-}
-
-func main() {
-	// rawload()
-	proxyload()
 }

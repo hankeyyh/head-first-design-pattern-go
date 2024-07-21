@@ -10,7 +10,7 @@ import (
 
 func main() {
 	a := app.New()
-	w := a.NewWindow("Menu Example")
+	w := a.NewWindow("Album Cover Viewer")
 	w.Resize(fyne.NewSize(400, 400))
 
 	imageStore := map[string]string{

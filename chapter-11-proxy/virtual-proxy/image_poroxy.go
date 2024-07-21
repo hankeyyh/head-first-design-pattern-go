@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"image/color"
+	"time"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
@@ -19,7 +20,6 @@ const (
 )
 
 type ImageIcon struct {
-	name       string
 	filename   string
 	url        string
 	loadStatus LoadStatus
@@ -35,13 +35,12 @@ type ImageProxy struct {
 func NewImageProxy(nameUrlMap map[string]string) *ImageProxy {
 	result := new(ImageProxy)
 	result.imageMetadata = make(map[string]*ImageIcon)
-	for name, url := range nameUrlMap {
-		icon := &ImageIcon{name: name, url: url, loadStatus: UnStarted}
-		if fileExists(name) {
-			icon.filename = name
+	for filename, url := range nameUrlMap {
+		icon := &ImageIcon{url: url, loadStatus: UnStarted, filename: filename}
+		if fileExists(filename) {
 			icon.loadStatus = Loaded
 		}
-		result.imageMetadata[name] = icon
+		result.imageMetadata[filename] = icon
 	}
 	result.image = canvas.NewImageFromFile("")
 	result.image.FillMode = canvas.ImageFillOriginal
@@ -67,8 +66,10 @@ func (ip *ImageProxy) PaintIcon(name string) {
 	ip.imageMetadata[name].loadStatus = Loading
 	ip.paintLoadingText()
 
+	// TODO 控制生命周期
 	go func() {
-		fileName, err := downloadImg(name, ip.imageMetadata[name].url)
+		time.Sleep(time.Second * 2)
+		err := downloadImg(name, ip.imageMetadata[name].url)
 		if err != nil {
 			// display text error
 			fmt.Println(err)
@@ -76,7 +77,6 @@ func (ip *ImageProxy) PaintIcon(name string) {
 			return
 		}
 		ip.imageMetadata[name].loadStatus = Loaded
-		ip.imageMetadata[name].filename = fileName
 		// if still waiting, display the image
 		if ip.curImage == name {
 			ip.paintImage(name)

@@ -67,21 +67,23 @@ func (ip *ImageProxy) PaintIcon(name string) {
 	ip.paintLoadingText()
 
 	// TODO 控制生命周期
-	go func() {
-		time.Sleep(time.Second * 2)
-		err := downloadImg(name, ip.imageMetadata[name].url)
-		if err != nil {
-			// display text error
-			fmt.Println(err)
-			ip.imageMetadata[name].loadStatus = UnLoad
-			return
-		}
-		ip.imageMetadata[name].loadStatus = Loaded
-		// if still waiting, display the image
-		if ip.curImage == name {
-			ip.paintImage(name)
-		}
-	}()
+	go ip.loadImage(name)
+}
+
+func (ip *ImageProxy) loadImage(name string) {
+	time.Sleep(time.Second * 2)
+	err := downloadFile(name, ip.imageMetadata[name].url)
+	if err != nil {
+		// display text error
+		fmt.Println(err)
+		ip.imageMetadata[name].loadStatus = UnLoad
+		return
+	}
+	ip.imageMetadata[name].loadStatus = Loaded
+	// if still waiting, display the image
+	if ip.curImage == name {
+		ip.paintImage(name)
+	}
 }
 
 func (ip *ImageProxy) paintImage(name string) {

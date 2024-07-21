@@ -7,7 +7,7 @@ import (
 )
 
 // TODO timeout
-func downloadImg(filename, url string) error {
+func downloadFile(filename, url string) error {
 	// Download the image from the URL
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", url, nil)

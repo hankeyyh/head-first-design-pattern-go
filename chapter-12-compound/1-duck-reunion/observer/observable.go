@@ -1,5 +1,10 @@
 package observer
 
+type QuackObservable interface {
+	RegisterObserver(observer Observer)
+	NotifyObservers()
+}
+
 type BasicObservable struct {
 	observerList []Observer
 	Duck QuackObservable

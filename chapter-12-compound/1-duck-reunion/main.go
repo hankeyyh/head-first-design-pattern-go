@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/hankeyyh/head-first-design-pattern-go/chapter-12-compound/1-duck-reunion/observer"
+)
 
 
 func DuckSimulator() {
@@ -13,7 +17,7 @@ func DuckSimulator() {
 	rubberDuck = NewRubberDuck()
 	gooseDuck = NewGooseAdapter(NewGoose())
 
-	fmt.Println("Duck Simulator: with goose adapter")
+	fmt.Println("Duck Simulator1: with goose adapter")
 	simulate(mallardDuck, redHeadDuck, duckCall, rubberDuck, gooseDuck)
 
 	// Version 2
@@ -23,7 +27,7 @@ func DuckSimulator() {
 	rubberDuck = NewQuackCounter(rubberDuck)
 	gooseDuck = NewQuackCounter(gooseDuck)
 
-	fmt.Println("\nDuck Simulator: with decorator")
+	fmt.Println("\nDuck Simulator2: with decorator")
 	simulate(mallardDuck, redHeadDuck, duckCall, rubberDuck, gooseDuck)
 	fmt.Println("The ducks quacked", numberOfQuacks, "times")
 
@@ -36,7 +40,7 @@ func DuckSimulator() {
 	rubberDuck = duckFactory.CreateRubberDuck()
 	gooseDuck = gooseFactory.CreateGoose()
 
-	fmt.Println("\nDuck Simulator: with abstract factory")
+	fmt.Println("\nDuck Simulator3: with abstract factory")
 	simulate(mallardDuck, redHeadDuck, duckCall, rubberDuck, gooseDuck)
 	fmt.Println("The ducks quacked", numberOfQuacks, "times")
 
@@ -55,7 +59,7 @@ func DuckSimulator() {
 
 	duckFlock.Add(mallardFlock)
 
-	fmt.Println("\nDuck Simulator: with composite - Whole Flock simulation")
+	fmt.Println("\nDuck Simulator4: with composite - Whole Flock simulation")
 	simulate(duckFlock)
 
 	fmt.Println("\nDuck Simulator: with composite - Mallard Flock simulation")
@@ -64,6 +68,16 @@ func DuckSimulator() {
 	fmt.Println("The ducks quacked", numberOfQuacks, "times")
 
 	// Version 5
+	duckFlockObservable := NewFlockObservable()
+	duckFlockObservable.Add(NewMallarDuck())
+	duckFlockObservable.Add(NewRedHeadDuck())
+	duckFlockObservable.Add(NewDuckCall())
+	duckFlockObservable.Add(NewRubberDuck())
+	
+	duckFlockObservable.RegisterObserver(observer.NewQuackologist())
+
+	fmt.Println("\nDuck Simulator5: With Observer")
+	simulate(duckFlockObservable)
 }
 
 func simulate(quackList ...Quackable) {

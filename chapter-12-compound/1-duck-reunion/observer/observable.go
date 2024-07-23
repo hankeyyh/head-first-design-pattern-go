@@ -1,16 +1,16 @@
 package observer
 
-type Observable struct {
+type BasicObservable struct {
 	observerList []Observer
-	// duck QuackObservable
+	Duck QuackObservable
 }
 
-func (o *Observable) RegisterObserver(observer Observer) {
+func (o *BasicObservable) RegisterObserver(observer Observer) {
 	o.observerList = append(o.observerList, observer)
 }
 
-func (o *Observable) NotifyObservers() {
+func (o *BasicObservable) NotifyObservers() {
 	for _, observer := range o.observerList {
-		observer.Update(o)
+		observer.Update(o.Duck)
 	}
 }

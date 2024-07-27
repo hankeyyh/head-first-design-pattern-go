@@ -13,6 +13,9 @@ import (
 )
 
 type DJView interface {
+	BeatObserver
+	BpmObserver
+
 	CreateWindow(name string)
 	Show()
 	Quit()
@@ -23,9 +26,6 @@ type DJView interface {
 	DisableStartMenuItem()
 	EnableStopMenuItem()
 	DisableStopMenuItem()
-
-	BeatObserver
-	BpmObserver
 }
 
 type BasicDJView struct {
@@ -36,6 +36,10 @@ type BasicDJView struct {
 	window   fyne.Window
 	pulseBar *viewcomponent.BeatBar
 	bpmLabel *widget.Label
+
+	startMenuItem *fyne.MenuItem
+	stopMenuItem  *fyne.MenuItem
+	quitMenuItem  *fyne.MenuItem
 }
 
 func NewBasicDJView(model BeatModel) *BasicDJView {
@@ -56,6 +60,7 @@ func (b *BasicDJView) CreateWindow(name string) {
 	bpmPanel := b.createBpmPanel()
 	vbox := container.NewVBox(controlPanel, bpmPanel)
 	b.window.SetContent(vbox)
+	b.window.SetMainMenu(b.createMenu())
 }
 
 func (b *BasicDJView) createControlPanel() *fyne.Container {
@@ -97,6 +102,22 @@ func (b *BasicDJView) createBpmPanel() *fyne.Container {
 	return vbox
 }
 
+func (b *BasicDJView) createMenu() *fyne.MainMenu {
+	b.startMenuItem = fyne.NewMenuItem("Start", func() {
+		b.controller.Start()
+	})
+	b.stopMenuItem = fyne.NewMenuItem("Stop", func() {
+		b.controller.Stop()
+	})
+	b.quitMenuItem = fyne.NewMenuItem("Quit", func() {
+		b.controller.Quit()
+	})
+
+	ctrlMenu := fyne.NewMenu("DJ Control", b.startMenuItem, b.stopMenuItem, b.quitMenuItem)
+	main := fyne.NewMainMenu(ctrlMenu)
+	return main
+}
+
 func (b *BasicDJView) Show() {
 	b.window.ShowAndRun()
 }
@@ -127,17 +148,17 @@ func (b *BasicDJView) GetBpmObserverName() string {
 }
 
 func (b *BasicDJView) EnableStartMenuItem() {
-
+	b.startMenuItem.Disabled = false
 }
 
 func (b *BasicDJView) DisableStartMenuItem() {
-
+	b.startMenuItem.Disabled = true
 }
 
 func (b *BasicDJView) EnableStopMenuItem() {
-
+	b.stopMenuItem.Disabled = false
 }
 
 func (b *BasicDJView) DisableStopMenuItem() {
-
+	b.stopMenuItem.Disabled = true
 }

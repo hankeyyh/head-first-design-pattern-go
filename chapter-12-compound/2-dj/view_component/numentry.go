@@ -18,6 +18,6 @@ func (n *NumEntry) Keyboard() mobile.KeyboardType {
 func NewNumEntry() *NumEntry {
 	e := &NumEntry{}
 	e.ExtendBaseWidget(e)
-	e.Validator = validation.NewRegexp(`\d`, "Must contain a number")
+	e.Validator = validation.NewRegexp(`\d`, "bpm between 90-60000")
 	return e
 }

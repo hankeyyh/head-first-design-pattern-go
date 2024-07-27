@@ -5,7 +5,8 @@ import (
 	"time"
 
 	"github.com/gopxl/beep"
-	"github.com/gopxl/beep/mp3"
+	// "github.com/gopxl/beep/mp3"
+	"github.com/gopxl/beep/wav"
 	"github.com/gopxl/beep/speaker"
 )
 
@@ -29,7 +30,7 @@ func (b *BeepAudioModel) Initialize(filename string) error {
 	if err != nil {
 		return err
 	}
-	b.streamer, b.format, err = mp3.Decode(f)
+	b.streamer, b.format, err = wav.Decode(f)
 	if err != nil {
 		return err
 	}

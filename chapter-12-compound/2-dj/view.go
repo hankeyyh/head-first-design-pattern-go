@@ -54,7 +54,7 @@ func NewBasicDJView(model BeatModel) *BasicDJView {
 func (b *BasicDJView) CreateWindow(name string) {
 	b.app = app.New()
 	b.window = b.app.NewWindow(name)
-	b.window.Resize(fyne.NewSize(400, 400))
+	b.window.Resize(fyne.NewSize(300, 200))
 
 	controlPanel := b.createControlPanel()
 	bpmPanel := b.createBpmPanel()
@@ -119,6 +119,7 @@ func (b *BasicDJView) createMenu() *fyne.MainMenu {
 }
 
 func (b *BasicDJView) Show() {
+	b.controller.Start()
 	b.window.ShowAndRun()
 }
 

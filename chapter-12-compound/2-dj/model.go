@@ -47,7 +47,7 @@ func NewBasicBeatModel() *BasicBeatModel {
 
 func (b *BasicBeatModel) Initialize() error {
 	b.audio = NewBeepAudioModel()
-	return b.audio.Initialize("clap.mp3")
+	return b.audio.Initialize("clap.wav")
 }
 
 func (b *BasicBeatModel) On() {

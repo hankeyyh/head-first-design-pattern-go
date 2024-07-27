@@ -1,5 +1,7 @@
 package main
 
+import "math"
+
 type Controller interface {
 	Start()
 	Stop()
@@ -44,13 +46,14 @@ func (b *BeatController) Quit() {
 }
 
 func (b *BeatController) IncreaseBpm() {
-	b.model.SetBpm(b.model.GetBpm() + 1)
+	b.SetBpm(b.model.GetBpm() + 20)
 }
 
 func (b *BeatController) DecreaseBpm() {
-	b.model.SetBpm(b.model.GetBpm() - 1)
+	b.SetBpm(b.model.GetBpm() - 20)
 }
 
 func (b *BeatController) SetBpm(bpm int) {
+	bpm = int(math.Min(60000, math.Max(90, float64(bpm))))
 	b.model.SetBpm(bpm)
 }

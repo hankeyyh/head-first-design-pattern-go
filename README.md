@@ -7,6 +7,11 @@ Some cases in the tutorial depend on specific Java packages. In order to impleme
 
 
 ### chapter-11-proxy
-virtual-proxy: implement an album cover viewer. Imageproxy controls network communication and display a "Loading" label during the process. [fyne](https://docs.fyne.io/) for UI rendering.
+virtual-proxy: implements an album cover viewer. Imageproxy controls network communication and display a "Loading" label during the process. [fyne](https://github.com/fyne-io/fyne) for UI rendering.
 
-<img src="doc/image.png" alt="alt text" width="300" height="350">
+<img src="doc/album.png" alt="alt text" width="300" height="350">
+
+### chapter-12-compound
+dj: implements the beats control and view display with mvc pattern. The model utilizes [beep](https://github.com/gopxl/beep) for playing audio. The View utilizes [fyne](https://github.com/fyne-io/fyne) for UI rendering.
+
+<img src="doc/djview.png" alt="alt text" width="300" height="350">

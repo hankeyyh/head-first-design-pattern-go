@@ -1,14 +1,10 @@
 module github.com/hankeyyh/head-first-design-pattern-go
 
-go 1.21
-
-toolchain go1.22.0
+go 1.22
 
 require (
 	fyne.io/fyne/v2 v2.5.0
-	github.com/bobertlo/go-mpg123 v0.0.0-20211210004329-c83f21a0fd39
 	github.com/gopxl/beep v1.4.1
-	github.com/gordonklaus/portaudio v0.0.0-20230709114228-aafa478834f5
 	github.com/mars9/codec v0.0.0-20160208102151-49676af5c6e0
 	google.golang.org/protobuf v1.34.2
 )
@@ -31,7 +27,6 @@ require (
 	github.com/godbus/dbus/v5 v5.1.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/gopherjs/gopherjs v1.17.2 // indirect
-	github.com/hajimehoshi/go-mp3 v0.3.4 // indirect
 	github.com/jeandeaual/go-locale v0.0.0-20240223122105-ce5225dcaa49 // indirect
 	github.com/jsummers/gobmp v0.0.0-20151104160322-e2ba15ffa76e // indirect
 	github.com/nicksnyder/go-i18n/v2 v2.4.0 // indirect

@@ -14,4 +14,4 @@ virtual-proxy: implements an album cover viewer. Imageproxy controls network com
 ### chapter-12-compound
 dj: implements the beats control and view display with mvc pattern. The model utilizes [beep](https://github.com/gopxl/beep) for playing audio. The View utilizes [fyne](https://github.com/fyne-io/fyne) for UI rendering.
 
-<img src="doc/djview.png" alt="alt text" width="300" height="350">
+<img src="doc/djview.png" alt="alt text" width="300" height="250">

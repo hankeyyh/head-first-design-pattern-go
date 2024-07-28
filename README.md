@@ -7,6 +7,8 @@ Some cases in the tutorial depend on specific Java packages. In order to impleme
 
 
 ### chapter-11-proxy
+remote-proxy: use proto and rpc for communication.
+
 virtual-proxy: implements an album cover viewer. Imageproxy controls network communication and display a "Loading" label during the process. [fyne](https://github.com/fyne-io/fyne) for UI rendering.
 
 <img src="doc/album.png" alt="alt text" width="300" height="350">

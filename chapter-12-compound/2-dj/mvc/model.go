@@ -131,6 +131,6 @@ func (b *BasicBeatModel) RemoveBpmObserver(o BpmObserver) {
 
 func (b *BasicBeatModel) notifyBpmObservers() {
 	for _, o := range b.bpmObservers {
-		o.UpdateBpm(b.bpm)
+		o.UpdateBpm()
 	}
 }

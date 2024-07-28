@@ -103,6 +103,6 @@ func (h *BasicHeartModel) RemoveBpmObserver(o mvc.BpmObserver) {
 
 func (h *BasicHeartModel) notifyBpmObservers() {
 	for _, o := range h.bpmObservers {
-		o.UpdateBpm(h.GetHeartRate())
+		o.UpdateBpm()
 	}
 }

@@ -140,8 +140,8 @@ func (b *BasicDJView) GetBeatObserverName() string {
 	return "BasicDJView"
 }
 
-func (b *BasicDJView) UpdateBpm(bpm int) {
-	b.bpmLabel.SetText(strconv.Itoa(bpm))
+func (b *BasicDJView) UpdateBpm() {
+	b.bpmLabel.SetText(strconv.Itoa(b.model.GetBpm()))
 }
 
 func (b *BasicDJView) GetBpmObserverName() string {

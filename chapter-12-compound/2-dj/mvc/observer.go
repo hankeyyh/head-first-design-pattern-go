@@ -7,5 +7,5 @@ type BeatObserver interface {
 
 type BpmObserver interface {
 	GetBpmObserverName() string
-	UpdateBpm(bpm int)
+	UpdateBpm()
 }

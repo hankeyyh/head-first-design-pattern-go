@@ -1,4 +1,4 @@
-package main
+package mvc
 
 import (
 	"sync"
@@ -47,7 +47,7 @@ func NewBasicBeatModel() *BasicBeatModel {
 
 func (b *BasicBeatModel) Initialize() error {
 	b.audio = NewBeepAudioModel()
-	return b.audio.Initialize("clap.wav")
+	return b.audio.Initialize("mvc/clap.wav")
 }
 
 func (b *BasicBeatModel) On() {

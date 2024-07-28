@@ -1,6 +1,8 @@
-package main
+package mvc
 
-import "math"
+import (
+	"math"
+)
 
 type Controller interface {
 	Start()

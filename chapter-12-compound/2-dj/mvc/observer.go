@@ -1,4 +1,4 @@
-package main
+package mvc
 
 type BeatObserver interface {
 	GetBeatObserverName() string

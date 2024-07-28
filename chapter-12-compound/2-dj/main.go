@@ -1,12 +1,15 @@
 package main
 
-func main() {
-	model := NewBasicBeatModel()
-	model.Initialize()
+import "github.com/hankeyyh/head-first-design-pattern-go/chapter-12-compound/2-dj/mvc"
 
-	controller := NewBeatController(model)
-	
-	view := NewBasicDJView(model)
+func main() {
+	model := mvc.NewBasicBeatModel()
+	if err := model.Initialize(); err != nil {
+		panic(err)
+	}
+
+	controller := mvc.NewBeatController(model)
+	view := mvc.NewBasicDJView(model)
 	view.SetController(controller)
 	controller.SetView(view)
 

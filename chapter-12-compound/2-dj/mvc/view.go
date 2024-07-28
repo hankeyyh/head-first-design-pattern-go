@@ -1,4 +1,4 @@
-package main
+package mvc
 
 import (
 	"strconv"
@@ -9,7 +9,7 @@ import (
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/widget"
 
-	viewcomponent "github.com/hankeyyh/head-first-design-pattern-go/chapter-12-compound/2-dj/view_component"
+	viewcomponent "github.com/hankeyyh/head-first-design-pattern-go/chapter-12-compound/2-dj/mvc/view_component"
 )
 
 type DJView interface {

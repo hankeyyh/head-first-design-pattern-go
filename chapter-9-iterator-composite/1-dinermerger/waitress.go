@@ -5,10 +5,11 @@ import "fmt"
 type Waitress struct {
 	pancakeHouseMenu Menu
 	dinerMenu Menu
+	cafeMenu Menu
 }
 
-func NewWaitress(phm, dm Menu) *Waitress {
-	return &Waitress{phm, dm}
+func NewWaitress(phm, dm, cm Menu) *Waitress {
+	return &Waitress{phm, dm, cm}
 }
 
 func (w *Waitress) printMenu() {
@@ -16,6 +17,8 @@ func (w *Waitress) printMenu() {
 	w.printSingleMenu(w.pancakeHouseMenu.createIterator())
 	fmt.Printf("\nLunch\n")
 	w.printSingleMenu(w.dinerMenu.createIterator())
+	fmt.Printf("\nDinner\n")
+	w.printSingleMenu(w.cafeMenu.createIterator())
 }
 
 func (w *Waitress) printSingleMenu(iterator Iterator) {

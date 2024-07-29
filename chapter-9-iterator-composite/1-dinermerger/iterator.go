@@ -55,3 +55,29 @@ func (p *PancakeHouseMenuIterator) HasNext() bool {
 	}
 	return p.cur.Next() != nil
 }
+
+type CafeMenuIterator struct {
+	menuItems []*MenuItem
+	position int
+}
+
+func NewCafeMenuIterator(menuItems map[string]*MenuItem) *CafeMenuIterator {
+	items := make([]*MenuItem, 0, len(menuItems))
+	for _, item := range menuItems {
+		items = append(items, item)
+	}
+	return &CafeMenuIterator{items, 0}
+}
+
+func (c *CafeMenuIterator) Next() *MenuItem {
+	menuItem := c.menuItems[c.position]
+	c.position++
+	return menuItem
+}
+
+func (c *CafeMenuIterator) HasNext() bool {
+	if c.position >= len(c.menuItems) || c.menuItems[c.position] == nil {
+		return false
+	}
+	return true
+}

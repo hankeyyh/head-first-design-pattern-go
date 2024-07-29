@@ -1,7 +1,7 @@
 package main
 
 func main() {
-	waitress := NewWaitress(NewPancakeHouseMenu(), NewDinerMenu())
+	waitress := NewWaitress(NewPancakeHouseMenu(), NewDinerMenu(), NewCafeMenu())
 	waitress.printMenu()
 	waitress.printVegetarianMenu()
 }

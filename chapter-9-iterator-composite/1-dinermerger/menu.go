@@ -70,3 +70,25 @@ func (p *PancakeHouseMenu) GetMenuItems() *list.List {
 func (p *PancakeHouseMenu) createIterator() Iterator {
 	return NewPancakeHouseMenuIterator(p.menuItems)
 }
+
+type CafeMenu struct {
+	menuItems map[string]*MenuItem
+}
+
+func NewCafeMenu() *CafeMenu {
+	cm := &CafeMenu{
+		menuItems: make(map[string]*MenuItem),
+	}
+	cm.addItem("Veggie Burger and Air Fries", "Veggie burger on a whole wheat bun, lettuce, tomato, and fries", true, 3.99)
+	cm.addItem("Soup of the day", "A cup of the soup of the day, with a side salad", false, 3.69)
+	cm.addItem("Burrito", "A large burrito, with whole pinto beans, salsa, guacamole", true, 4.29)
+	return cm
+}
+
+func (c *CafeMenu) addItem(name, description string, vegetarian bool, price float64) {
+	c.menuItems[name] = NewMenuItem(name, description, vegetarian, price)
+}
+
+func (c *CafeMenu) createIterator() Iterator {
+	return NewCafeMenuIterator(c.menuItems)
+}

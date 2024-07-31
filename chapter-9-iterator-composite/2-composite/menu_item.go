@@ -30,7 +30,12 @@ func (m *MenuItem) IsVegetarian() bool {
 }
 
 func (m *MenuItem) Print() {
-	fmt.Printf("%s-%.2f-%s\n", m.GetName(), m.GetPrice(), m.GetDescription())
+	fmt.Print("  " + m.GetName())
+	if m.IsVegetarian() {
+		fmt.Print("(v)")
+	}
+	fmt.Printf(", %.2f\n", m.GetPrice())
+	fmt.Println("    -- " + m.GetDescription())
 }
 
 func (m *MenuItem) Add(child MenuComponment) {

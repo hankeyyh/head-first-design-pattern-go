@@ -4,10 +4,6 @@ import (
 	"fmt"
 )
 
-type Menu interface {
-	createIterator() Iterator
-}
-
 const DinerMenuMaxItems = 6
 
 type BasicMenu struct {
@@ -39,10 +35,8 @@ func (b *BasicMenu) IsVegetarian() bool {
 func (b *BasicMenu) Print() {
 	fmt.Printf("\n%s, %s\n", b.GetName(), b.GetDescription())
 	fmt.Println("---------------------")
-
-	iterator := b.createIterator()
-	for iterator.HasNext() {
-		iterator.Next().Print()
+	for _, item := range b.menuComponments {
+		item.Print()
 	}
 }
 
@@ -63,6 +57,3 @@ func (b *BasicMenu) GetChild(n int) MenuComponment {
 	return b.menuComponments[n]
 }
 
-func (b *BasicMenu) createIterator() Iterator {
-	return NewBasicMenuIterator(b.menuComponments)
-}

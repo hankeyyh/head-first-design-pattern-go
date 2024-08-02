@@ -5,10 +5,6 @@ import (
 )
 
 type Observer interface {
-	// v1 push 所有数据都传递给观察者
-	// update(temp, humidity, pressure float32)
-
-	// v2 pull 只传递一个主题对象，观察者可以自己获取需要的数据
 	update()
 }
 

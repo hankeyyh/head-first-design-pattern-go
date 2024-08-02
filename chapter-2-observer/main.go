@@ -1,7 +1,5 @@
 package main
 
-
-
 func main() {
 	wd := NewWeatherData()
 	NewCurrentCondDisplay(wd)

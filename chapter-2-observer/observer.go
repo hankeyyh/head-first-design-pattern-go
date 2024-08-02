@@ -1,6 +1,8 @@
 package main
 
-import "strconv"
+import (
+	"strconv"
+)
 
 type Observer interface {
 	// v1 push 所有数据都传递给观察者
@@ -17,10 +19,10 @@ type DisplayElement interface {
 type CurrentCondDisplay struct {
 	temperature float32
 	humidity float32
-	wd *WeatherData
+	wd Subject
 }
 
-func NewCurrentCondDisplay(wd *WeatherData) *CurrentCondDisplay {
+func NewCurrentCondDisplay(wd Subject) *CurrentCondDisplay {
 	result := &CurrentCondDisplay{
 		wd: wd,
 	}
@@ -29,9 +31,11 @@ func NewCurrentCondDisplay(wd *WeatherData) *CurrentCondDisplay {
 }
 
 func (c *CurrentCondDisplay) update() {
-	c.temperature = c.wd.GetTemperature()
-	c.humidity = c.wd.GetHumidity()
-	c.display()
+	if wd, ok := c.wd.(*WeatherData); ok {
+		c.temperature = wd.GetTemperature()
+		c.humidity = wd.GetHumidity()
+		c.display()
+	}
 }
 
 func (c *CurrentCondDisplay) display() {
@@ -43,10 +47,10 @@ type StatisticsDisplay struct {
 	minTemp float32
 	tempSum float32
 	numReadings int;
-	wd *WeatherData;
+	wd Subject;
 }
 
-func NewStatisticsDisplay(wd *WeatherData) *StatisticsDisplay {
+func NewStatisticsDisplay(wd Subject) *StatisticsDisplay {
 	result := &StatisticsDisplay{
 		minTemp: 200,
 		wd: wd,
@@ -56,17 +60,19 @@ func NewStatisticsDisplay(wd *WeatherData) *StatisticsDisplay {
 }
 
 func (s *StatisticsDisplay) update() {
-	temp := s.wd.GetTemperature()
-	s.tempSum += temp
-	s.numReadings++
-	if temp > s.maxTemp {
-		s.maxTemp = temp
+	if wd, ok := s.wd.(*WeatherData); ok {
+		temp := wd.GetTemperature()
+		s.tempSum += temp
+		s.numReadings++
+		if temp > s.maxTemp {
+			s.maxTemp = temp
+		}
+	
+		if temp < s.minTemp {
+			s.minTemp = temp
+		}
+		s.display()
 	}
-
-	if temp < s.minTemp {
-		s.minTemp = temp
-	}
-	s.display()
 }
 
 func (s *StatisticsDisplay) display() {
@@ -76,10 +82,10 @@ func (s *StatisticsDisplay) display() {
 type ForecastDisplay struct {
 	currentPressure float32
 	lastPressure float32
-	wd *WeatherData
+	wd Subject
 }
 
-func NewForecastDisplay(wd *WeatherData) *ForecastDisplay {
+func NewForecastDisplay(wd Subject) *ForecastDisplay {
 	result := &ForecastDisplay{
 		currentPressure: 29.92,
 		wd: wd,
@@ -89,9 +95,11 @@ func NewForecastDisplay(wd *WeatherData) *ForecastDisplay {
 }
 
 func (f *ForecastDisplay) update() {
-	f.lastPressure = f.currentPressure
-	f.currentPressure = f.wd.GetPressure()
-	f.display()
+	if wd, ok := f.wd.(*WeatherData); ok {
+		f.lastPressure = f.currentPressure
+		f.currentPressure = wd.GetPressure()
+		f.display()
+	}
 }
 
 func (f *ForecastDisplay) display() {
